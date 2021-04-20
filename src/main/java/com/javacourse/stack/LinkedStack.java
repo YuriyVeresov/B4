@@ -1,25 +1,32 @@
 package com.javacourse.stack;
 
+import java.util.LinkedList;
+
 /**
  * Реализация стека на базе односвязного списка
  */
 public class LinkedStack<ItemTypeT> implements Stack<ItemTypeT> {
 
+	private LinkedList<ItemTypeT> store;
+
+	public LinkedStack() {
+		this.store = new LinkedList<>();
+	}
+
 	@Override
 	public void push(ItemTypeT item) {
-		// TODO: замените тело метода на полноценную реализацию
-		throw new RuntimeException("Method not implemented");
+		store.add(item);
 	}
 
 	@Override
 	public ItemTypeT pop() {
-		// TODO: замените тело метода на полноценную реализацию
-		throw new RuntimeException("Method not implemented");
+		if (store.isEmpty()) throw new RuntimeException("Empty Stack Exception");
+		return store.pollLast();
 	}
 
 	@Override
 	public ItemTypeT peek() {
-		// TODO: замените тело метода на полноценную реализацию
-		throw new RuntimeException("Method not implemented");
+		if (store.isEmpty()) throw new RuntimeException("Empty Stack Exception");
+		return store.getLast();
 	}
 }
