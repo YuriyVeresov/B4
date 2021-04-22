@@ -1,20 +1,18 @@
 package com.javacourse.stack;
 
-import java.util.LinkedList;
-
 /**
  * Реализация стека на базе односвязного списка
  */
 public class LinkedStack<ItemTypeT extends Comparable<ItemTypeT>> implements Stack<ItemTypeT> {
 
-    private LinkedList<ItemTypeT> store;
-    private LinkedList<ItemTypeT> minStore;
-    private LinkedList<ItemTypeT> maxStore;
+    private CustomLinkedList<ItemTypeT> store;
+    private CustomLinkedList<ItemTypeT> maxStore;
+    private CustomLinkedList<ItemTypeT> minStore;
 
     public LinkedStack() {
-        this.store = new LinkedList<>();
-        this.minStore = new LinkedList<>();
-        this.maxStore = new LinkedList<>();
+        this.store = new CustomLinkedList<>();
+        this.maxStore = new CustomLinkedList<>();
+        this.minStore = new CustomLinkedList<>();
     }
 
     @Override
@@ -44,14 +42,14 @@ public class LinkedStack<ItemTypeT extends Comparable<ItemTypeT>> implements Sta
     public ItemTypeT pop() {
         if (store.isEmpty()) throw new RuntimeException("Empty Stack Exception");
         ItemTypeT top = store.getLast();
-        if (top != null && top.equals(maxStore.getLast())) maxStore.pollLast();
-        if (top != null && top.equals(minStore.getLast())) minStore.pollLast();
-        return store.pollLast();
+        if (top != null && top.equals(maxStore.getLast())) maxStore.getCurrentItem();
+        if (top != null && top.equals(minStore.getLast())) minStore.getCurrentItem();
+        return store.getCurrentItem();
     }
 
     @Override
     public ItemTypeT peek() {
-        if (store.isEmpty()) throw new RuntimeException("Empty Stack Exception");
+        if (isEmpty()) throw new RuntimeException("Empty Stack Exception");
         return store.getLast();
     }
 
@@ -63,5 +61,9 @@ public class LinkedStack<ItemTypeT extends Comparable<ItemTypeT>> implements Sta
     public ItemTypeT min() {
         if (store.isEmpty()) throw new RuntimeException("Empty Stack Exception");
         return minStore.getLast();
+    }
+
+    public boolean isEmpty() {
+        return store.isEmpty();
     }
 }
